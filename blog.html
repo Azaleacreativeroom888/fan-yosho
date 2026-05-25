@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>コラム | The Page Turner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Noto+Serif+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--sepia:#8B6F4E;--sepia-dark:#5C4033;--sepia-mid:#C4A882;--sepia-light:#F0E6D3;--sepia-pale:#FAF5ED;--blue:#7BAAB8;--blue-dark:#4A7A8A;--blue-mid:#A8C8D4;--blue-light:#DFF0F4;--blue-pale:#EEF7FA;--text:#2C1F14;--text-sub:#6B5240;--font:'Noto Serif JP',serif}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font);background-color:var(--sepia-pale);background-image:repeating-conic-gradient(var(--sepia-light) 0% 25%,var(--blue-pale) 0% 50%);background-size:48px 48px;background-attachment:fixed;color:var(--text);min-height:100vh}
+    header{background:rgba(250,245,237,0.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:2px solid var(--sepia-mid);padding:.85rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;position:sticky;top:0;z-index:100}
+    .logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;color:var(--sepia-dark);text-decoration:none;display:flex;align-items:center;gap:7px}
+    .logo-sub{font-size:10px;font-style:normal;font-family:var(--font);color:var(--text-sub);letter-spacing:.1em}
+    nav ul{list-style:none;display:flex;gap:6px;flex-wrap:wrap}
+    nav a{font-size:13px;text-decoration:none;color:var(--sepia-dark);background:var(--sepia-light);border:1px solid var(--sepia-mid);padding:5px 14px;border-radius:20px;transition:background .15s,color .15s;white-space:nowrap;font-family:var(--font)}
+    nav a:hover{background:var(--sepia-mid);color:#fff}
+    nav a.active{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark)}
+    main{max-width:680px;margin:0 auto;padding:1.75rem 1.25rem 3rem}
+    .page-header{background:rgba(255,255,255,0.85);border-radius:18px;border:1px solid var(--sepia-mid);padding:1.25rem 1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 12px rgba(92,64,51,.08)}
+    .page-header h1{font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:var(--sepia-dark);margin-bottom:.35rem}
+    .page-header p{font-size:13px;color:var(--text-sub);line-height:1.7}
+    .section-head{font-size:1rem;font-weight:700;color:var(--sepia-dark);margin-bottom:1rem;display:flex;align-items:center;gap:8px;padding-left:4px}
+    .posts{display:flex;flex-direction:column;gap:10px}
+    .post{background:rgba(255,255,255,0.85);border-radius:14px;border:1px solid var(--sepia-light);padding:1rem 1.2rem;display:flex;gap:14px;align-items:flex-start;transition:transform .15s,box-shadow .15s}
+    .post:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(92,64,51,.1)}
+    .post-date{font-size:11px;font-weight:700;color:var(--blue-dark);background:var(--blue-light);border-radius:8px;padding:3px 9px;white-space:nowrap;flex-shrink:0;margin-top:2px;line-height:1.6;font-family:var(--font)}
+    .post-text{font-size:13.5px;color:var(--text-sub);line-height:1.85}
+    .back-link{display:inline-flex;align-items:center;gap:6px;margin-top:1.75rem;color:var(--blue-dark);text-decoration:none;font-size:13px;background:rgba(255,255,255,0.85);border:1px solid var(--blue-mid);padding:6px 16px;border-radius:20px;transition:background .15s;font-family:var(--font)}
+    .back-link:hover{background:var(--blue-light)}
+    footer{text-align:center;padding:1.25rem;font-size:12px;color:var(--text-sub);border-top:1px solid var(--sepia-mid);background:rgba(240,230,211,0.7)}
+    footer a{color:var(--blue-dark);text-decoration:none}
+    footer a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">📖 The Page Turner <span class="logo-sub">洋書レビュー</span></a>
+  <nav><ul>
+    <li><a href="index.html">ホーム</a></li>
+    <li><a href="ranking.html">ランキング</a></li>
+    <li><a href="blog.html" class="active">コラム</a></li>
+    <li><a href="contact.html">お問い合わせ</a></li>
+  </ul></nav>
+</header>
+
+<main>
+  <div class="page-header">
+    <h1>📝 洋書よみよみ日記</h1>
+    <p>備忘録。書評なのでネタバレを含みます。ランキングは随時更新。最終的な年間ランキングは年末に決まります。</p>
+  </div>
+
+  <div class="section-head">🗒️ 最新記事</div>
+
+  <div class="posts">
+
+    <div class="post">
+      <div class="post-date">2026/05/23</div>
+      <div class="post-text">「広くいろんな洋書を読むんじゃなくて、これからは好きな作家を深掘りしていきたい」と思いつつ、未だに新しい面白そうな本を探し続けてる。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/05/22</div>
+      <div class="post-text">Fourth Wing の続編 Iron Flame、予想してたよりは面白かった。すごく批判されてたから不安だったけど。ただ、まあ、批判されてるところはなんとなく読んで分かった。「あぁ、このことね」ってなった。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/05/21</div>
+      <div class="post-text">Holly の続きどうしよう……面白かったけど、そこまでハマりもしなかったな。King はホラー寄りになると苦手意識が増す。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/05/20</div>
+      <div class="post-text">なんか洋書の翻訳が微妙だな。読みにくい。英語の原書で読んだ方がすっと入ってくる。そう考えると「プロジェクト・ヘイル・メアリー」の翻訳は神。翻訳者の腕でこんなに変わるんだな。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/05/18</div>
+      <div class="post-text">洋書ばかり読んでて暇なの？って言われたんだけど、みんながテレビとかYouTube観てる時間に読んでるんだよ。Kindle なら電車の中でも読めるしね。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/05/17</div>
+      <div class="post-text">Kristin Hannah の小説はやっぱり面白い。The Nightingale の冒頭数ページ読んだだけで「面白っ！」ってなった。これ全部読むやつだ。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/05/16</div>
+      <div class="post-text">Lessons in Chemistry、ユーモアがあって読みやすいんだけど、1960年代アメリカの女性差別描写がリアルで腹も立つ。笑いながら怒れる小説ってなかなかない。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/05/15</div>
+      <div class="post-text">マーベル映画と同じで、Fourth Wing も「世界観が好きな人が楽しめる」タイプの作品な気がしてきた。私はどちらかというとキャラクターの内面を掘り下げる系が好き。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/05/14</div>
+      <div class="post-text">The Wager、面白いけど2倍速くらいで読みたい。章をまたぐたびに視点が変わるので展開がちょっと遅く感じる。あと序盤はあんまり面白くない。中盤から一気に加速する。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/05/13</div>
+      <div class="post-text">Yellowface、話題だから読んだけど……なんとも言えない。出版業界批判として鋭いなとは思ったけど、主人公の行動が奇妙で共感できなかった。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/05/09</div>
+      <div class="post-text">Project Hail Mary と The Martian 読み始めた。面白いのは言わずもがななんだけど、なぜかすごく読みやすい。Andy Weir の文体かな。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/05/08</div>
+      <div class="post-text">洋書はだんだん好みが定まってきた感じがする。文学フィクションは好きな作家が決まってきて、あとSFとミステリー中心に読めばいいかなと。そろそろインプットを落ち着かせたい。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/05/07</div>
+      <div class="post-text">Demon Copperhead、ちょっとしんどい内容だな。あまりにもリアルすぎて……ほぼ実話ベースだからか。でもそのしんどさが傑作の証だと思う。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/05/06</div>
+      <div class="post-text">ミステリーがあまりハマらない理由を分析してるんだけど、「謎を解く楽しみ」より「登場人物を好きになる楽しみ」のほうが私には大事なのかも。十角館の殺人は例外。あれは本当に衝撃だった。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/05/04</div>
+      <div class="post-text">ピクサー映画を順番に観てるんだけど、洋書でいうと児童文学を読んでる感じ。純粋に楽しい。The Thursday Murder Club もそういう意味で似た読み心地がある。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/04/26</div>
+      <div class="post-text">最初に読んだ洋書が Project Hail Mary で、最初に読んだ古典が The Great Gatsby なんだけど、「順番間違えてますよ」って言われてしまった（笑）でも面白かったよ。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/04/22</div>
+      <div class="post-text">All the Light We Cannot See は本当に名作。ヴェルナー……ヤバい。泣いた。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/04/22</div>
+      <div class="post-text">The Covenant of Water は１巻でいったん休憩かもしれない。Abraham Verghese の小説ってなんでも丁寧すぎて……嫌いではない。ただ、魂に響くまでに時間がかかる。</div>
+    </div>
+
+    <div class="post">
+      <div class="post-date">2026/04/21</div>
+      <div class="post-text">Sally Rooney 作品ちょっと苦手かもしれない。私には合わなかった。私はほんの少しでも「発見」とか「学び」がほしいと思っちゃう。Rooney ってどちらかというと感情の揺らぎを楽しむ人が好きな作品だと思った。好きな人の話を聞くのは楽しいんだけどな。</div>
+    </div>
+
+  </div>
+
+  <a class="back-link" href="index.html">← トップページに戻る</a>
+</main>
+
+<footer>
+  © The Page Turner — 洋書レビュー &nbsp;|&nbsp;
+  <a href="index.html">ホーム</a> &nbsp;|&nbsp;
+  <a href="ranking.html">ランキング</a> &nbsp;|&nbsp;
+  <a href="contact.html">お問い合わせ</a>
+</footer>
+
+</body>
+</html>
