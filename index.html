@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Page Turner | 洋書レビューサイト</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Noto+Serif+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --sepia:#8B6F4E;--sepia-dark:#5C4033;--sepia-mid:#C4A882;--sepia-light:#F0E6D3;--sepia-pale:#FAF5ED;
+      --blue:#7BAAB8;--blue-dark:#4A7A8A;--blue-mid:#A8C8D4;--blue-light:#DFF0F4;--blue-pale:#EEF7FA;
+      --text:#2C1F14;--text-sub:#6B5240;--font:'Noto Serif JP',serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:var(--font);
+      background-color:var(--sepia-pale);
+      background-image:
+        repeating-conic-gradient(var(--sepia-light) 0% 25%, var(--blue-pale) 0% 50%);
+      background-size:48px 48px;
+      min-height:100vh;
+    }
+    header{
+      background:rgba(250,245,237,0.93);
+      backdrop-filter:blur(8px);
+      border-bottom:2px solid var(--sepia-mid);
+      padding:.85rem 1.5rem;
+      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;
+      position:sticky;top:0;z-index:10;
+    }
+    .logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-style:italic;color:var(--sepia-dark);text-decoration:none;display:flex;align-items:center;gap:7px}
+    .logo-sub{font-size:10px;font-style:normal;font-family:var(--font);color:var(--text-sub);letter-spacing:.1em}
+    nav ul{list-style:none;display:flex;gap:6px;flex-wrap:wrap}
+    nav a{font-size:13px;text-decoration:none;color:var(--sepia-dark);background:var(--sepia-light);border:1px solid var(--sepia-mid);padding:5px 14px;border-radius:20px;transition:background .15s,color .15s;font-family:var(--font)}
+    nav a:hover,nav a.active{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark)}
+    main{max-width:720px;margin:0 auto;padding:1.5rem 1rem 3rem}
+    .search-bar{display:flex;gap:8px;background:rgba(255,255,255,0.75);border-radius:16px;padding:10px 14px;box-shadow:0 2px 12px rgba(92,64,51,.1);margin-bottom:1.5rem;border:1px solid var(--sepia-mid)}
+    .search-bar input{flex:1;border:none;outline:none;font-size:14px;background:transparent;color:var(--text);font-family:var(--font)}
+    .search-bar button{background:var(--blue-dark);color:#fff;border:none;border-radius:12px;padding:6px 16px;font-size:13px;cursor:pointer;font-family:var(--font)}
+    .search-bar button:hover{background:var(--sepia-dark)}
+    .hero{background:rgba(255,255,255,0.82);border:1px solid var(--sepia-mid);border-radius:18px;padding:1.5rem 1.6rem;margin-bottom:1.5rem;box-shadow:0 4px 20px rgba(92,64,51,.09);display:flex;flex-direction:column;gap:.5rem}
+    .hero-tag{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--blue-dark);background:var(--blue-light);border-radius:8px;padding:3px 10px;display:inline-block;width:fit-content}
+    .hero h2{font-family:'Playfair Display',serif;font-size:1.6rem;font-style:italic;color:var(--text);line-height:1.3}
+    .hero .hero-author{font-size:13px;color:var(--text-sub)}
+    .hero .hero-stars{color:var(--sepia);font-size:18px;letter-spacing:2px}
+    .hero .hero-body{font-size:14px;color:var(--text-sub);line-height:1.75}
+    .hero-meta{font-size:12px;color:var(--sepia-mid);margin-top:.25rem}
+    .section-head{font-size:14px;font-weight:700;color:var(--text);margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
+    .section-head span{color:var(--blue-dark);font-size:16px}
+    .cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.75rem}
+    .card{background:rgba(255,255,255,0.80);border-radius:14px;border:1px solid var(--sepia-mid);padding:1rem 1.1rem;transition:transform .15s,box-shadow .15s;cursor:pointer}
+    .card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(92,64,51,.13)}
+    .card-genre{font-size:11px;color:var(--blue-dark);background:var(--blue-light);border-radius:8px;padding:2px 8px;display:inline-block;margin-bottom:.4rem}
+    .card h3{font-size:15px;font-weight:700;color:var(--text);margin-bottom:.35rem;font-style:italic;font-family:'Playfair Display',serif}
+    .card p{font-size:13px;color:var(--text-sub);line-height:1.65}
+    .stars{color:var(--sepia);font-size:13px;margin-bottom:.3rem}
+    .ranking-list{display:flex;flex-direction:column;gap:10px;margin-bottom:1.75rem}
+    .rank-item{background:rgba(255,255,255,0.80);border-radius:14px;border:1px solid var(--sepia-light);padding:.9rem 1rem;display:flex;gap:12px;align-items:flex-start;transition:box-shadow .15s}
+    .rank-item:hover{box-shadow:0 4px 16px rgba(92,64,51,.12)}
+    .rank-num{min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px}
+    .rank-1{background:var(--sepia-dark);color:#fff}
+    .rank-2{background:var(--sepia);color:#fff}
+    .rank-3{background:var(--sepia-mid);color:var(--sepia-dark)}
+    .rank-other{background:var(--blue-light);color:var(--blue-dark)}
+    .rank-body{flex:1}
+    .rank-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:.25rem;font-style:italic;font-family:'Playfair Display',serif}
+    .rank-tag{font-size:11px;color:var(--blue-dark);background:var(--blue-light);padding:1px 7px;border-radius:6px;margin-left:6px;vertical-align:middle;font-style:normal;font-weight:400;font-family:var(--font)}
+    .rank-text{font-size:12.5px;color:var(--text-sub);line-height:1.65}
+    .rank-stars{color:var(--sepia);font-size:12px;margin-bottom:.2rem}
+    .divider{text-align:center;color:var(--sepia-mid);letter-spacing:.4em;font-size:13px;margin:.5rem 0 1.25rem}
+    footer{text-align:center;padding:1.25rem;font-size:12px;color:var(--text-sub);border-top:1px solid var(--sepia-mid);background:rgba(240,230,211,0.7)}
+    footer a{color:var(--blue-dark);text-decoration:none}
+    footer a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+<header>
+  <a class="logo" href="index.html">📖 The Page Turner <span class="logo-sub">洋書レビュー</span></a>
+  <nav><ul>
+    <li><a href="index.html" class="active">ホーム</a></li>
+    <li><a href="ranking.html">ランキング</a></li>
+    <li><a href="blog.html">コラム</a></li>
+    <li><a href="contact.html">お問い合わせ</a></li>
+  </ul></nav>
+</header>
+<main>
+  <div class="search-bar">
+    <input type="text" placeholder="書名・著者名で検索…">
+    <button>検索</button>
+  </div>
+
+  <div class="hero">
+    <span class="hero-tag">⭐ 今週のピック</span>
+    <h2>The Nightingale</h2>
+    <p class="hero-author">Kristin Hannah 著</p>
+    <div class="hero-stars">★★★★★</div>
+    <p class="hero-body">第二次世界大戦下のフランス、二人の姉妹の物語。読み終わったあとしばらく何も手につかなかった。Kristin Hannah の本のなかでいちばん好き。英語もそこまで難しくないので洋書入門にもおすすめ。</p>
+    <p class="hero-meta">2026.05.24 · フィクション / 歴史小説</p>
+  </div>
+
+  <div class="divider">— ✦ —</div>
+
+  <div class="section-head"><span>★</span>★5レビュー</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-genre">SF / 小説</div>
+      <div class="stars">★★★★★</div>
+      <h3>Project Hail Mary</h3>
+      <p>今まで読んだSFのなかでいちばん面白かった。ラストが最高すぎる。「新世界より」を読んだときと同じくらい衝撃を受けた。</p>
+    </div>
+    <div class="card">
+      <div class="card-genre">ノンフィクション</div>
+      <div class="stars">★★★★★</div>
+      <h3>The Wager</h3>
+      <p>ノンフィクションなのに小説より面白い。コンテンツとしては最高の形。David Grann の筆力がすごい。</p>
+    </div>
+    <div class="card">
+      <div class="card-genre">文学フィクション</div>
+      <div class="stars">★★★★★</div>
+      <h3>All the Light We Cannot See</h3>
+      <p>ピューリッツァー賞受賞作。英語が詩的で読んでいて気持ちいい。戦時下フランスを舞台にした美しい物語。</p>
+    </div>
+    <div class="card">
+      <div class="card-genre">ミステリー</div>
+      <div class="stars">★★★★★</div>
+      <h3>The Thursday Murder Club</h3>
+      <p>老人ホームの住人4人が殺人事件を解決する。「十角館の殺人」にハマった人なら絶対好き。洋書入門にもぴったり。</p>
+    </div>
+  </div>
+
+  <div class="divider">— ✦ —</div>
+
+  <div class="section-head"><span>🔥</span>新着レビュー</div>
+  <div class="ranking-list">
+    <div class="rank-item">
+      <div class="rank-num rank-1">1</div>
+      <div class="rank-body">
+        <div class="rank-stars">★★★★★</div>
+        <div class="rank-title">Demon Copperhead<span class="rank-tag">文学フィクション</span></div>
+        <div class="rank-text">ピューリッツァー賞受賞。現代アパラチアのオピオイド危機を描く。重いテーマだけど、主人公の語り口がユーモラスで引き込まれる。「新世界より」の中巻から下巻へのあの加速感に似ている。</div>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-num rank-2">2</div>
+      <div class="rank-body">
+        <div class="rank-stars">★★★★★</div>
+        <div class="rank-title">Fourth Wing<span class="rank-tag">ファンタジー</span></div>
+        <div class="rank-text">ドラゴンと魔法の世界を舞台にしたファンタジー。映像が浮かぶような描写がすごい。「閃光のハサウェイ」を見たときみたいな「これ以上ない」という感覚があった。続きが気になりすぎて困る。</div>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-num rank-3">3</div>
+      <div class="rank-body">
+        <div class="rank-stars">★★★★☆</div>
+        <div class="rank-title">Holly<span class="rank-tag">ミステリー</span></div>
+        <div class="rank-text">Stephen King の最新作。ミステリーにハマったきっかけが「十角館の殺人」なので、ホラーミステリー路線は大好物。ページを捲る手が止まらない。</div>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-num rank-other">4</div>
+      <div class="rank-body">
+        <div class="rank-stars">★★★★☆</div>
+        <div class="rank-title">Lessons in Chemistry<span class="rank-tag">歴史フィクション</span></div>
+        <div class="rank-text">1960年代の女性化学者が料理番組のホストになる物語。クスッとなる脚本が最高で、「マーダーズ・イン・ビルディング」を見ているときみたいな楽しさがある。</div>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-num rank-other">5</div>
+      <div class="rank-body">
+        <div class="rank-stars">★★★★★</div>
+        <div class="rank-title">The Covenant of Water<span class="rank-tag">文学フィクション</span></div>
+        <div class="rank-text">インド南部の家族三世代にわたる物語。上巻はゆっくり進むが中盤から一気に引き込まれる。下巻はページを捲る手が止まらなかった。「新世界より」と同じ読後感がある。</div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>
+  © The Page Turner — 洋書レビュー &nbsp;|&nbsp;
+  <a href="ranking.html">ランキング</a> &nbsp;|&nbsp;
+  <a href="blog.html">コラム</a> &nbsp;|&nbsp;
+  <a href="contact.html">お問い合わせ</a>
+</footer>
+</body>
+</html>
