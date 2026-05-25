@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お問い合わせ | The Page Turner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Noto+Serif+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--sepia:#8B6F4E;--sepia-dark:#5C4033;--sepia-mid:#C4A882;--sepia-light:#F0E6D3;--sepia-pale:#FAF5ED;--blue:#7BAAB8;--blue-dark:#4A7A8A;--blue-mid:#A8C8D4;--blue-light:#DFF0F4;--blue-pale:#EEF7FA;--text:#2C1F14;--text-sub:#6B5240;--font:'Noto Serif JP',serif}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font);background-color:var(--sepia-pale);background-image:repeating-conic-gradient(var(--sepia-light) 0% 25%,var(--blue-pale) 0% 50%);background-size:48px 48px;background-attachment:fixed;color:var(--text);min-height:100vh}
+    header{background:rgba(250,245,237,0.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:2px solid var(--sepia-mid);padding:.85rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;position:sticky;top:0;z-index:100}
+    .logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;color:var(--sepia-dark);text-decoration:none;display:flex;align-items:center;gap:7px}
+    .logo-sub{font-size:10px;font-style:normal;font-family:var(--font);color:var(--text-sub);letter-spacing:.1em}
+    nav ul{list-style:none;display:flex;gap:6px;flex-wrap:wrap}
+    nav a{font-size:13px;text-decoration:none;color:var(--sepia-dark);background:var(--sepia-light);border:1px solid var(--sepia-mid);padding:5px 14px;border-radius:20px;transition:background .15s,color .15s;white-space:nowrap;font-family:var(--font)}
+    nav a:hover{background:var(--sepia-mid);color:#fff}
+    nav a.active{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark)}
+
+    main{max-width:680px;margin:0 auto;padding:1.75rem 1.25rem 3rem}
+
+    .page-header{background:rgba(255,255,255,0.85);border-radius:18px;border:1px solid var(--sepia-mid);padding:1.25rem 1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 12px rgba(92,64,51,.08)}
+    .page-header h1{font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:var(--sepia-dark);margin-bottom:.35rem}
+    .page-header p{font-size:13px;color:var(--text-sub);line-height:1.7}
+
+    .section-head{font-size:1rem;font-weight:700;color:var(--sepia-dark);margin-bottom:1rem;display:flex;align-items:center;gap:8px;padding-left:4px}
+
+    /* TYPE SELECTOR — blog の post-date バッジ風 */
+    .type-selector{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem}
+    .type-btn{font-size:12px;font-weight:700;color:var(--blue-dark);background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:20px;padding:5px 14px;cursor:pointer;transition:background .15s,color .15s;font-family:var(--font)}
+    .type-btn:hover{background:var(--blue-mid);color:#fff}
+    .type-btn.active{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark)}
+
+    /* FORM — blog の .post カード風 */
+    .form-card{background:rgba(255,255,255,0.85);border-radius:14px;border:1px solid var(--sepia-light);padding:1.25rem 1.4rem;margin-bottom:1rem;box-shadow:0 2px 12px rgba(92,64,51,.06)}
+
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .form-group{margin-bottom:.9rem}
+    .form-label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--text-sub);margin-bottom:.35rem;text-transform:uppercase}
+    .form-required{color:var(--blue-dark)}
+    .form-input,.form-select,.form-textarea{width:100%;padding:9px 12px;background:rgba(255,255,255,0.9);border:1px solid var(--sepia-mid);border-radius:10px;color:var(--text);font-family:var(--font);font-size:14px;outline:none;transition:border-color .15s}
+    .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue-dark)}
+    .form-textarea{resize:vertical;min-height:130px;line-height:1.75}
+
+    /* 星評価 */
+    .rating-wrap{display:flex;align-items:center;gap:5px}
+    .star-btn{font-size:24px;color:#ccc;cursor:pointer;transition:color .1s,transform .1s;user-select:none}
+    .star-btn:hover,.star-btn.active{color:var(--sepia);transform:scale(1.15)}
+    .rating-label{font-size:13px;color:var(--text-sub);margin-left:6px}
+
+    /* チェックボックス */
+    .checkbox-group{display:flex;flex-direction:column;gap:7px}
+    .checkbox-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-sub);cursor:pointer}
+    .checkbox-item input{accent-color:var(--blue-dark);width:15px;height:15px;cursor:pointer}
+
+    /* 送信ボタン */
+    .btn-submit{width:100%;padding:11px;background:var(--sepia-dark);color:#fff;border:none;border-radius:12px;font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;transition:background .15s;margin-top:.25rem}
+    .btn-submit:hover{background:var(--blue-dark)}
+
+    /* 送信完了 — blog の .post 風 */
+    .success-post{display:none;background:rgba(255,255,255,0.85);border-radius:14px;border:1px solid var(--blue-mid);padding:1rem 1.2rem;margin-top:1rem;flex-direction:row;gap:14px;align-items:flex-start}
+    .success-post.show{display:flex}
+    .success-badge{font-size:11px;font-weight:700;color:var(--blue-dark);background:var(--blue-light);border-radius:8px;padding:3px 9px;white-space:nowrap;flex-shrink:0;margin-top:2px;line-height:1.6;font-family:var(--font)}
+    .success-text{font-size:13.5px;color:var(--text-sub);line-height:1.85}
+
+    /* 連絡先 & FAQ — .post カード風 */
+    .info-list,.faq-list{display:flex;flex-direction:column;gap:10px;margin-bottom:1.5rem}
+    .info-post,.faq-post{background:rgba(255,255,255,0.85);border-radius:14px;border:1px solid var(--sepia-light);padding:1rem 1.2rem;display:flex;gap:14px;align-items:flex-start;transition:transform .15s,box-shadow .15s}
+    .info-post:hover,.faq-post:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(92,64,51,.1)}
+    .info-icon{font-size:18px;flex-shrink:0;margin-top:2px}
+    .info-label{font-size:11px;font-weight:700;color:var(--blue-dark);margin-bottom:.15rem;font-family:var(--font);letter-spacing:.05em}
+    .info-value{font-size:13.5px;color:var(--text-sub);line-height:1.7}
+
+    /* FAQ 開閉 */
+    .faq-post{flex-direction:column;gap:0;cursor:pointer;padding:0}
+    .faq-q{padding:1rem 1.2rem;font-size:13.5px;font-weight:700;color:var(--text);display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;font-family:'Playfair Display',serif;font-style:italic}
+    .faq-toggle{color:var(--blue-dark);font-size:18px;transition:transform .2s;flex-shrink:0;font-style:normal;font-family:var(--font)}
+    .faq-post.open .faq-toggle{transform:rotate(45deg)}
+    .faq-a{padding:0 1.2rem 1rem;font-size:13px;color:var(--text-sub);line-height:1.8;display:none}
+    .faq-post.open .faq-a{display:block}
+
+    .back-link{display:inline-flex;align-items:center;gap:6px;margin-top:1.75rem;color:var(--blue-dark);text-decoration:none;font-size:13px;background:rgba(255,255,255,0.85);border:1px solid var(--blue-mid);padding:6px 16px;border-radius:20px;transition:background .15s;font-family:var(--font)}
+    .back-link:hover{background:var(--blue-light)}
+
+    footer{text-align:center;padding:1.25rem;font-size:12px;color:var(--text-sub);border-top:1px solid var(--sepia-mid);background:rgba(240,230,211,0.7)}
+    footer a{color:var(--blue-dark);text-decoration:none}
+    footer a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">📖 The Page Turner <span class="logo-sub">洋書レビュー</span></a>
+  <nav><ul>
+    <li><a href="index.html">ホーム</a></li>
+    <li><a href="ranking.html">ランキング</a></li>
+    <li><a href="blog.html">コラム</a></li>
+    <li><a href="contact.html" class="active">お問い合わせ</a></li>
+  </ul></nav>
+</header>
+
+<main>
+
+  <div class="page-header">
+    <h1>✉️ お問い合わせ</h1>
+    <p>レビュー投稿・ご意見・広告のご相談など、お気軽にどうぞ。返信は2〜3営業日以内を目安にしています。</p>
+  </div>
+
+  <!-- 種別選択 -->
+  <div class="section-head">📬 お問い合わせ種別</div>
+  <div class="type-selector">
+    <button class="type-btn active" onclick="selectType(this,'review')">📖 レビュー投稿</button>
+    <button class="type-btn" onclick="selectType(this,'general')">✉️ 一般のお問い合わせ</button>
+    <button class="type-btn" onclick="selectType(this,'ad')">📢 広告・掲載依頼</button>
+  </div>
+
+  <!-- フォーム -->
+  <div class="section-head">📝 フォーム</div>
+  <div class="form-card">
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">お名前<span class="form-required">*</span></label>
+        <input type="text" class="form-input" placeholder="田中 麻里">
+      </div>
+      <div class="form-group">
+        <label class="form-label">メールアドレス<span class="form-required">*</span></label>
+        <input type="email" class="form-input" placeholder="hello@example.com">
+      </div>
+    </div>
+
+    <div id="review-fields">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">書名<span class="form-required">*</span></label>
+          <input type="text" class="form-input" placeholder="The Wager">
+        </div>
+        <div class="form-group">
+          <label class="form-label">著者名<span class="form-required">*</span></label>
+          <input type="text" class="form-input" placeholder="David Grann">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">ジャンル</label>
+        <select class="form-select">
+          <option value="">選択してください</option>
+          <option>フィクション</option>
+          <option>ノンフィクション</option>
+          <option>ミステリー</option>
+          <option>ファンタジー</option>
+          <option>SF</option>
+          <option>ロマンス</option>
+          <option>歴史小説</option>
+          <option>詩集</option>
+          <option>その他</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">評価<span class="form-required">*</span></label>
+        <div class="rating-wrap">
+          <span class="star-btn" onclick="setRating(1)">★</span>
+          <span class="star-btn" onclick="setRating(2)">★</span>
+          <span class="star-btn" onclick="setRating(3)">★</span>
+          <span class="star-btn" onclick="setRating(4)">★</span>
+          <span class="star-btn" onclick="setRating(5)">★</span>
+          <span class="rating-label" id="rating-text">クリックして評価</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">件名<span class="form-required">*</span></label>
+      <input type="text" class="form-input" placeholder="お問い合わせの件名">
+    </div>
+    <div class="form-group">
+      <label class="form-label">メッセージ / レビュー本文<span class="form-required">*</span></label>
+      <textarea class="form-textarea" placeholder="読んだ感想、印象に残ったシーン、他の読者へのメッセージなどをご自由にどうぞ。"></textarea>
+    </div>
+    <div class="form-group">
+      <div class="checkbox-group">
+        <label class="checkbox-item"><input type="checkbox" checked> 週刊メルマガを受け取る</label>
+        <label class="checkbox-item"><input type="checkbox"> プライバシーポリシーに同意する</label>
+      </div>
+    </div>
+    <button class="btn-submit" onclick="submitForm()">送信する</button>
+
+    <!-- 送信完了メッセージ（.post 風） -->
+    <div class="success-post" id="success-msg">
+      <div class="success-badge">送信完了</div>
+      <div class="success-text">ありがとうございます！2〜3営業日以内にご返信いたします。</div>
+    </div>
+  </div>
+
+  <!-- 連絡先 -->
+  <div class="section-head">📍 連絡先</div>
+  <div class="info-list">
+    <div class="info-post">
+      <span class="info-icon">✉️</span>
+      <div><div class="info-label">メール</div><div class="info-value">editor@pageturner.jp</div></div>
+    </div>
+    <div class="info-post">
+      <span class="info-icon">🕐</span>
+      <div><div class="info-label">返信時間</div><div class="info-value">平日 2〜3営業日以内</div></div>
+    </div>
+    <div class="info-post">
+      <span class="info-icon">𝕏</span>
+      <div><div class="info-label">Twitter / X</div><div class="info-value">@pageturner_jp</div></div>
+    </div>
+    <div class="info-post">
+      <span class="info-icon">📷</span>
+      <div><div class="info-label">Instagram</div><div class="info-value">@pageturner.jp</div></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section-head">❓ よくある質問</div>
+  <div class="faq-list">
+    <div class="faq-post" onclick="this.classList.toggle('open')">
+      <div class="faq-q">レビューはどうすれば掲載されますか？<span class="faq-toggle">+</span></div>
+      <div class="faq-a">フォームからレビューを投稿してください。編集部が内容を確認し、基準を満たしている場合は1〜2週間以内に掲載いたします。</div>
+    </div>
+    <div class="faq-post" onclick="this.classList.toggle('open')">
+      <div class="faq-q">どんな本でもレビューできますか？<span class="faq-toggle">+</span></div>
+      <div class="faq-a">基本的に英語原著の本を対象としています。過去に掲載実績がある書籍のレビューでも歓迎です。</div>
+    </div>
+    <div class="faq-post" onclick="this.classList.toggle('open')">
+      <div class="faq-q">出版社からの書籍提供は受け付けていますか？<span class="faq-toggle">+</span></div>
+      <div class="faq-a">はい、歓迎しています。「広告・掲載依頼」からご連絡ください。レビューの内容は編集部の判断で執筆します。</div>
+    </div>
+    <div class="faq-post" onclick="this.classList.toggle('open')">
+      <div class="faq-q">執筆者として参加できますか？<span class="faq-toggle">+</span></div>
+      <div class="faq-a">定期的にライターを募集しています。「お問い合わせ」から「執筆参加希望」とお書きの上、お気に入りの洋書3冊を添えてご連絡ください。</div>
+    </div>
+  </div>
+
+  <a class="back-link" href="index.html">← トップページに戻る</a>
+
+</main>
+
+<footer>
+  © The Page Turner — 洋書レビュー &nbsp;|&nbsp;
+  <a href="index.html">ホーム</a> &nbsp;|&nbsp;
+  <a href="ranking.html">ランキング</a> &nbsp;|&nbsp;
+  <a href="blog.html">コラム</a>
+</footer>
+
+<script>
+  function selectType(el, type) {
+    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('review-fields').style.display = type === 'review' ? 'block' : 'none';
+  }
+  const ratingLabels = ['','読まなくていい','まあまあ','良かった','とても良い','傑作！'];
+  function setRating(n) {
+    document.querySelectorAll('.star-btn').forEach((s, i) => s.classList.toggle('active', i < n));
+    document.getElementById('rating-text').textContent = ratingLabels[n];
+  }
+  function submitForm() {
+    const m = document.getElementById('success-msg');
+    m.classList.add('show');
+    m.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
+
+</body>
+</html>
