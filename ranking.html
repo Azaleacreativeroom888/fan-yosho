@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ランキング | The Page Turner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Noto+Serif+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--sepia:#8B6F4E;--sepia-dark:#5C4033;--sepia-mid:#C4A882;--sepia-light:#F0E6D3;--sepia-pale:#FAF5ED;--blue:#7BAAB8;--blue-dark:#4A7A8A;--blue-mid:#A8C8D4;--blue-light:#DFF0F4;--blue-pale:#EEF7FA;--text:#2C1F14;--text-sub:#6B5240;--font:'Noto Serif JP',serif}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font);background-color:var(--sepia-pale);background-image:repeating-conic-gradient(var(--sepia-light) 0% 25%,var(--blue-pale) 0% 50%);background-size:48px 48px;min-height:100vh}
+    header{background:rgba(250,245,237,0.93);backdrop-filter:blur(8px);border-bottom:2px solid var(--sepia-mid);padding:.85rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;position:sticky;top:0;z-index:10}
+    .logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-style:italic;color:var(--sepia-dark);text-decoration:none;display:flex;align-items:center;gap:7px}
+    .logo-sub{font-size:10px;font-style:normal;font-family:var(--font);color:var(--text-sub);letter-spacing:.1em}
+    nav ul{list-style:none;display:flex;gap:6px;flex-wrap:wrap}
+    nav a{font-size:13px;text-decoration:none;color:var(--sepia-dark);background:var(--sepia-light);border:1px solid var(--sepia-mid);padding:5px 14px;border-radius:20px;transition:background .15s,color .15s;font-family:var(--font)}
+    nav a:hover,nav a.active{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark)}
+    main{max-width:720px;margin:0 auto;padding:1.5rem 1rem 3rem}
+    .page-title{background:rgba(255,255,255,0.82);border:1px solid var(--sepia-mid);border-radius:18px;padding:1.2rem 1.6rem;margin-bottom:1.5rem;box-shadow:0 4px 20px rgba(92,64,51,.09)}
+    .page-title h1{font-family:'Playfair Display',serif;font-size:1.5rem;font-style:italic;color:var(--text);margin-bottom:.3rem}
+    .page-title p{font-size:13px;color:var(--text-sub)}
+    .filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+    .filter-btn{font-size:12px;padding:5px 14px;border-radius:20px;border:1px solid var(--sepia-mid);background:rgba(255,255,255,0.8);color:var(--sepia-dark);cursor:pointer;transition:background .15s,color .15s;font-family:var(--font)}
+    .filter-btn:hover,.filter-btn.active{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark)}
+    .section-head{font-size:14px;font-weight:700;color:var(--text);margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
+    .section-head span{color:var(--blue-dark);font-size:16px}
+    .podium{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1.5rem}
+    .podium-card{border-radius:16px;padding:1.1rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.35rem}
+    .podium-1{background:var(--sepia-dark);color:#fff;box-shadow:0 6px 20px rgba(92,64,51,.25)}
+    .podium-2{background:rgba(255,255,255,0.82);border:1px solid var(--sepia-mid)}
+    .podium-3{background:rgba(255,255,255,0.82);border:1px solid var(--sepia-mid)}
+    .podium-rank{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;line-height:1}
+    .podium-1 .podium-rank{color:var(--sepia-mid)}
+    .podium-2 .podium-rank,.podium-3 .podium-rank{color:var(--sepia)}
+    .podium-title{font-size:13px;font-weight:700;font-style:italic;line-height:1.3;font-family:'Playfair Display',serif}
+    .podium-1 .podium-title{color:#fff}
+    .podium-2 .podium-title,.podium-3 .podium-title{color:var(--text)}
+    .podium-author{font-size:11px}
+    .podium-1 .podium-author{color:rgba(255,255,255,0.7)}
+    .podium-2 .podium-author,.podium-3 .podium-author{color:var(--text-sub)}
+    .podium-stars{font-size:12px;letter-spacing:1px}
+    .podium-1 .podium-stars{color:var(--sepia-mid)}
+    .podium-2 .podium-stars,.podium-3 .podium-stars{color:var(--sepia)}
+    .podium-score{font-size:20px;font-weight:700}
+    .podium-1 .podium-score{color:var(--sepia-light)}
+    .podium-2 .podium-score,.podium-3 .podium-score{color:var(--sepia-dark)}
+    .ranking-list{display:flex;flex-direction:column;gap:10px;margin-bottom:1.75rem}
+    .rank-item{background:rgba(255,255,255,0.80);border-radius:14px;border:1px solid var(--sepia-light);padding:.9rem 1rem;display:flex;gap:12px;align-items:flex-start;transition:box-shadow .15s}
+    .rank-item:hover{box-shadow:0 4px 16px rgba(92,64,51,.12)}
+    .rank-num{min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px}
+    .rank-1{background:var(--sepia-dark);color:#fff}
+    .rank-2{background:var(--sepia);color:#fff}
+    .rank-3{background:var(--sepia-mid);color:var(--sepia-dark)}
+    .rank-other{background:var(--blue-light);color:var(--blue-dark)}
+    .rank-body{flex:1}
+    .rank-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:.25rem;font-style:italic;font-family:'Playfair Display',serif}
+    .rank-tag{font-size:11px;color:var(--blue-dark);background:var(--blue-light);padding:1px 7px;border-radius:6px;margin-left:6px;vertical-align:middle;font-style:normal;font-weight:400;font-family:var(--font)}
+    .rank-text{font-size:12.5px;color:var(--text-sub);line-height:1.65}
+    .rank-stars{color:var(--sepia);font-size:12px;margin-bottom:.2rem}
+    .trend{font-size:11px;margin-left:4px;font-style:normal;font-family:var(--font)}
+    .trend-up{color:#5a8a5a}
+    .trend-down{color:#8a4a4a}
+    .trend-new{background:var(--blue-dark);color:#fff;font-size:10px;padding:1px 6px;border-radius:6px;font-style:normal;font-weight:700;font-family:var(--font)}
+    .divider{text-align:center;color:var(--sepia-mid);letter-spacing:.4em;font-size:13px;margin:.5rem 0 1.25rem}
+    footer{text-align:center;padding:1.25rem;font-size:12px;color:var(--text-sub);border-top:1px solid var(--sepia-mid);background:rgba(240,230,211,0.7)}
+    footer a{color:var(--blue-dark);text-decoration:none}
+    footer a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+<header>
+  <a class="logo" href="index.html">📖 The Page Turner <span class="logo-sub">洋書レビュー</span></a>
+  <nav><ul>
+    <li><a href="index.html">ホーム</a></li>
+    <li><a href="ranking.html" class="active">ランキング</a></li>
+    <li><a href="blog.html">コラム</a></li>
+    <li><a href="contact.html">お問い合わせ</a></li>
+  </ul></nav>
+</header>
+<main>
+  <div class="page-title">
+    <h1>📊 今月のランキング</h1>
+    <p>読者レビューと編集部スコアを合算した、今月もっとも読まれた洋書トップ10</p>
+  </div>
+  <div class="filter-bar">
+    <button class="filter-btn active">月間</button>
+    <button class="filter-btn">週間</button>
+    <button class="filter-btn">年間</button>
+    <button class="filter-btn">歴代</button>
+    <button class="filter-btn">フィクション</button>
+    <button class="filter-btn">ノンフィクション</button>
+    <button class="filter-btn">新刊</button>
+  </div>
+
+  <div class="section-head"><span>🏆</span>TOP 3</div>
+  <div class="podium">
+    <div class="podium-card podium-2">
+      <div class="podium-rank">2</div>
+      <div class="podium-title">Demon Copperhead</div>
+      <div class="podium-author">Barbara Kingsolver</div>
+      <div class="podium-stars">★★★★★</div>
+      <div class="podium-score">4.92</div>
+    </div>
+    <div class="podium-card podium-1">
+      <div class="podium-rank">1</div>
+      <div class="podium-title">The Wager</div>
+      <div class="podium-author">David Grann</div>
+      <div class="podium-stars">★★★★★</div>
+      <div class="podium-score">4.97</div>
+    </div>
+    <div class="podium-card podium-3">
+      <div class="podium-rank">3</div>
+      <div class="podium-title">Project Hail Mary</div>
+      <div class="podium-author">Andy Weir</div>
+      <div class="podium-stars">★★★★★</div>
+      <div class="podium-score">4.88</div>
+    </div>
+  </div>
+
+  <div class="divider">— ✦ —</div>
+
+  <div class="section-head"><span>📚</span>4位以下</div>
+  <div class="ranking-list">
+    <div class="rank-item">
+      <div class="rank-num rank-other">4</div>
+      <div class="rank-body">
+        <div class="rank-stars">★★★★★</div>
+        <div class="rank-title">Fourth Wing<span class="rank-tag">ファンタジー</span><span class="trend trend-up">▲2</span></div>
+        <div class="rank-text">ドラゴンと魔法の世界を舞台にしたファンタジー。映像が浮かぶような描写がすごい。続きが気になりすぎる。</div>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-num rank-other">5</div>
+      <div class="rank-body">
+        <div class="rank-stars">★★★★☆</div>
+        <div class="rank-title">Lessons in Chemistry<span class="rank-tag">歴史フィクション</span><span class="trend trend-down">▼1</span></div>
+        <div class="rank-text">1960年代の女性化学者が料理番組のホストになる物語。クスッとなる脚本が最高。「マーダーズ・イン・ビルディング」みたいな楽しさがある。</div>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-num rank-other">6</div>
+      <div class="rank-body">
+        <div class="rank-stars">★★★★☆</div>
+        <div class="rank-title">Holly<span class="rank-tag">ミステリー</span><span class="trend-new">NEW</span></div>
+        <div class="rank-text">Stephen King の最新作。ミステリーにハマったきっかけが「十角館の殺人」なので、ホラーミステリー路線は大好物。ページを捲る手が止まらない。</div>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-num rank-other">7</div>
+      <div class="rank-body">
+        <div class="rank-stars">★★★★★</div>
+        <div class="rank-title">All the Light We Cannot See<span class="rank-tag">文学フィクション</span><span class="trend trend-up">▲1</span></div>
+        <div class="rank-text">ピューリッツァー賞受賞作。英語が詩的で読んでいて気持ちいい。何度でも読み返したくなる名作。</div>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-num rank-other">8</div>
+      <div class="rank-body">
+        <div class="rank-stars">★★★★☆</div>
+        <div class="rank-title">The Midnight Library<span class="rank-tag">フィクション</span><span class="trend trend-down">▼2</span></div>
+        <div class="rank-text">人生のやり直しと後悔をテーマにした温かい物語。「WALL-E」を観たときみたいに、言葉なしに感情が伝わってくる本だった。</div>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-num rank-other">9</div>
+      <div class="rank-body">
+        <div class="rank-stars">★★★★☆</div>
+        <div class="rank-title">Yellowface<span class="rank-tag">文学スリラー</span><span class="trend-new">NEW</span></div>
+        <div class="rank-text">出版業界の人種差別と盗作をめぐるスリリングな一作。読み始めたら止まらない。</div>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-num rank-other">10</div>
+      <div class="rank-body">
+        <div class="rank-stars">★★★★☆</div>
+        <div class="rank-title">Intermezzo<span class="rank-tag">文学フィクション</span><span class="trend trend-up">▲3</span></div>
+        <div class="rank-text">Sally Rooney の最高傑作との声も。父の死をきっかけに葛藤する兄弟の物語。</div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>
+  © The Page Turner — 洋書レビュー &nbsp;|&nbsp;
+  <a href="index.html">ホーム</a> &nbsp;|&nbsp;
+  <a href="blog.html">コラム</a> &nbsp;|&nbsp;
+  <a href="contact.html">お問い合わせ</a>
+</footer>
+</body>
+</html>
