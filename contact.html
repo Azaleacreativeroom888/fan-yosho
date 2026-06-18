@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>リンク・お問い合わせ | The Page Turner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Noto+Serif+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--sepia:#8B6F4E;--sepia-dark:#5C4033;--sepia-mid:#C4A882;--sepia-light:#F0E6D3;--sepia-pale:#FAF5ED;--blue:#7BAAB8;--blue-dark:#4A7A8A;--blue-mid:#A8C8D4;--blue-light:#DFF0F4;--blue-pale:#EEF7FA;--text:#2C1F14;--text-sub:#6B5240;--font:'Noto Serif JP',serif}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font);background-color:var(--sepia-pale);background-image:repeating-conic-gradient(var(--sepia-light) 0% 25%,var(--blue-pale) 0% 50%);background-size:48px 48px;background-attachment:fixed;color:var(--text);min-height:100vh}
+
+    header{background:rgba(250,245,237,0.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:2px solid var(--sepia-mid);padding:.85rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;position:sticky;top:0;z-index:100}
+    .logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;color:var(--sepia-dark);text-decoration:none;display:flex;align-items:center;gap:7px}
+    .logo-sub{font-size:10px;font-style:normal;font-family:var(--font);color:var(--text-sub);letter-spacing:.1em}
+    nav ul{list-style:none;display:flex;gap:6px;flex-wrap:wrap}
+    nav a{font-size:13px;text-decoration:none;color:var(--sepia-dark);background:var(--sepia-light);border:1px solid var(--sepia-mid);padding:5px 14px;border-radius:20px;transition:background .15s,color .15s;white-space:nowrap;font-family:var(--font)}
+    nav a:hover{background:var(--sepia-mid);color:#fff}
+    nav a.active{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark)}
+
+    main{max-width:680px;margin:0 auto;padding:1.75rem 1.25rem 3rem}
+
+    .page-header{background:rgba(255,255,255,0.85);border-radius:18px;border:1px solid var(--sepia-mid);padding:1.25rem 1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 12px rgba(92,64,51,.08)}
+    .page-header h1{font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:var(--sepia-dark);margin-bottom:.35rem}
+    .page-header p{font-size:13px;color:var(--text-sub);line-height:1.7}
+
+    .section-head{font-size:.85rem;font-weight:700;color:var(--sepia-dark);margin-bottom:.75rem;display:flex;align-items:center;gap:8px;padding-left:2px}
+    .section-head::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--sepia-mid),transparent)}
+
+    /* LINK GRID */
+    .link-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
+    @media(max-width:480px){.link-grid{grid-template-columns:1fr}}
+
+    .link-card{display:flex;align-items:center;gap:12px;text-decoration:none;background:rgba(255,255,255,0.88);border:1px solid var(--sepia-light);border-radius:14px;padding:13px 14px;transition:transform .15s,box-shadow .15s}
+    .link-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(92,64,51,.12)}
+
+    .link-icon{font-size:20px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:var(--blue-light);border-radius:10px;flex-shrink:0}
+
+    .link-text{flex:1;min-width:0}
+    .link-name{display:block;font-size:13px;font-weight:700;color:var(--sepia-dark);margin-bottom:2px}
+    .link-desc{display:block;font-size:11px;color:var(--text-sub);line-height:1.5}
+
+    .link-arrow{font-size:16px;color:var(--sepia-mid);flex-shrink:0;transition:transform .15s}
+    .link-card:hover .link-arrow{transform:translateX(3px)}
+
+    /* FORM */
+    .form-card{background:rgba(255,255,255,0.88);border-radius:16px;border:1px solid var(--sepia-light);padding:1.4rem 1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 12px rgba(92,64,51,.06)}
+
+    .form-intro{font-size:13px;color:var(--text-sub);line-height:1.8;margin-bottom:1.1rem}
+
+    .form-group{margin-bottom:14px}
+    .form-label{display:block;font-size:12px;font-weight:700;color:var(--sepia-dark);margin-bottom:6px;letter-spacing:.04em}
+    .required{color:var(--blue-dark);margin-left:3px}
+
+    .form-input,.form-textarea{width:100%;background:#fff;border:1px solid var(--sepia-mid);border-radius:10px;color:var(--text);font-family:var(--font);font-size:13.5px;padding:9px 13px;outline:none;transition:border-color .2s,box-shadow .2s}
+    .form-input::placeholder,.form-textarea::placeholder{color:#bbb}
+    .form-input:focus,.form-textarea:focus{border-color:var(--blue-dark);box-shadow:0 0 0 3px rgba(74,122,138,.1)}
+    .form-textarea{resize:vertical;min-height:130px}
+
+    .field-error{display:block;font-size:11px;color:var(--blue-dark);margin-top:4px}
+
+    .form-submit{display:inline-flex;align-items:center;gap:7px;background:var(--sepia-dark);border:none;border-radius:20px;color:#fff;font-family:var(--font);font-size:14px;padding:10px 26px;cursor:pointer;margin-top:6px;transition:background .15s}
+    .form-submit:hover{background:var(--blue-dark)}
+    .form-submit:disabled{opacity:.5;cursor:not-allowed}
+
+    .form-success{background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:12px;padding:14px 18px;text-align:center;color:var(--blue-dark);font-size:14px;margin-bottom:16px}
+    .form-error-global{background:var(--sepia-light);border:1px solid var(--sepia-mid);border-radius:10px;padding:10px 14px;color:var(--sepia-dark);font-size:13px;margin-bottom:14px}
+
+    .back-link{display:inline-flex;align-items:center;gap:6px;margin-top:.5rem;color:var(--blue-dark);text-decoration:none;font-size:13px;background:rgba(255,255,255,0.85);border:1px solid var(--blue-mid);padding:6px 16px;border-radius:20px;transition:background .15s;font-family:var(--font)}
+    .back-link:hover{background:var(--blue-light)}
+
+    footer{border-top:1px solid var(--sepia-mid);background:rgba(240,230,211,0.7);padding:1rem 1.5rem;text-align:center}
+    footer p{font-size:11px;color:var(--text-sub);line-height:1.9;max-width:620px;margin:0 auto 4px}
+    footer a{color:var(--blue-dark);text-decoration:none}
+    footer a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">📖 The Page Turner <span class="logo-sub">洋書レビュー</span></a>
+  <nav><ul>
+    <li><a href="index.html">ホーム</a></li>
+    <li><a href="ranking.html">ランキング</a></li>
+    <li><a href="blog.html">コラム</a></li>
+    <li><a href="contact.html" class="active">リンク</a></li>
+  </ul></nav>
+</header>
+
+<main>
+
+  <div class="page-header">
+    <h1>🔗 リンク・お問い合わせ</h1>
+    <p>ご連絡は各SNSまたは下のフォームからどうぞ。</p>
+  </div>
+
+  <!-- SNS -->
+  <div class="section-head">💬 SNS</div>
+  <div class="link-grid">
+    <a class="link-card" href="https://bsky.app/" target="_blank" rel="noopener">
+      <div class="link-icon">🦋</div>
+      <div class="link-text">
+        <span class="link-name">Bluesky</span>
+        <span class="link-desc">近況・読書記録のお知らせ</span>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+    <a class="link-card" href="https://www.goodreads.com/" target="_blank" rel="noopener">
+      <div class="link-icon">📚</div>
+      <div class="link-text">
+        <span class="link-name">Goodreads</span>
+        <span class="link-desc">読書記録・レビュー</span>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+    <a class="link-card" href="https://www.instagram.com/" target="_blank" rel="noopener">
+      <div class="link-icon">📷</div>
+      <div class="link-text">
+        <span class="link-name">Instagram</span>
+        <span class="link-desc">本の写真など</span>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+    <a class="link-card" href="https://twitter.com/" target="_blank" rel="noopener">
+      <div class="link-icon">𝕏</div>
+      <div class="link-text">
+        <span class="link-name">Twitter / X</span>
+        <span class="link-desc">読書中のつぶやき</span>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+  </div>
+
+  <!-- 関連サイト -->
+  <div class="section-head">🏠 関連サイト</div>
+  <div class="link-grid">
+    <a class="link-card" href="https://www.amazon.co.jp/" target="_blank" rel="noopener">
+      <div class="link-icon">🛒</div>
+      <div class="link-text">
+        <span class="link-name">Amazon.co.jp</span>
+        <span class="link-desc">レビューした本の購入先</span>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+    <a class="link-card" href="https://www.bookdepository.com/" target="_blank" rel="noopener">
+      <div class="link-icon">📦</div>
+      <div class="link-text">
+        <span class="link-name">Book Depository</span>
+        <span class="link-desc">洋書の購入におすすめ</span>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+  </div>
+
+  <!-- お問い合わせフォーム -->
+  <div class="section-head">📮 お問い合わせフォーム</div>
+  <div class="form-card">
+    <p class="form-intro">ご質問・ご感想・レビューの投稿などはこちらからどうぞ。<br>返信は2〜3営業日以内を目安にしています。</p>
+
+    <div data-fs-success class="form-success" style="display:none;">
+      ✉️ メッセージを送信しました。ありがとうございます！
+    </div>
+    <div data-fs-error class="form-error-global" style="display:none;"></div>
+
+    <form id="contact-form">
+      <div class="form-group">
+        <label class="form-label" for="name">お名前</label>
+        <input class="form-input" type="text" id="name" name="name" placeholder="名前">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">メールアドレス<span class="required">*</span></label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="example@email.com" required>
+        <span class="field-error" id="email-error"></span>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="message">メッセージ<span class="required">*</span></label>
+        <textarea class="form-textarea" id="message" name="message" placeholder="メッセージを入力してください…" rows="6" required></textarea>
+        <span class="field-error" id="msg-error"></span>
+      </div>
+      <button class="form-submit" type="submit">📮 送信する</button>
+    </form>
+  </div>
+
+  <a class="back-link" href="index.html">← トップページに戻る</a>
+
+</main>
+
+<footer>
+  <p>当サイトに掲載されている文章・レビューについて、AI学習への利用、無断転載・転載、二次利用を禁止します。</p>
+  <p>Please refrain from using any text or reviews on this website for AI training, unauthorized reproduction, or secondary use.</p>
+  <p style="margin-top:8px;">© The Page Turner — 洋書レビュー &nbsp;|&nbsp; <a href="index.html">ホーム</a> &nbsp;|&nbsp; <a href="ranking.html">ランキング</a> &nbsp;|&nbsp; <a href="blog.html">コラム</a></p>
+</footer>
+
+<script>
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const success = document.querySelector('[data-fs-success]');
+    success.style.display = 'block';
+    this.reset();
+    success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+</script>
+
+</body>
+</html>
